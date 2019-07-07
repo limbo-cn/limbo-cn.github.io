@@ -166,7 +166,6 @@ class LoveScene {
         var intersects = this.raycaster.intersectObjects(this.scene.children);
 
         if (intersects.length > 0) {
-            console.log(intersects)
             if (this.INTERSECTED != intersects[0].object) {
                 if (this.INTERSECTED) this.INTERSECTED.material.emissive.setHex(this.INTERSECTED.currentHex);
                 this.INTERSECTED = intersects[0].object;
