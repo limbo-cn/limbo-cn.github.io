@@ -1,9 +1,10 @@
 class LoveScene {
     constructor() {
-        this.numHearts = 1000;
+        this.numHearts = 300;
         this.colors = {
-            red: 0xffccff,
-            choco: 0xffcccc
+            myHeart: 0xff0033,
+            background: 0xffccff,
+            heart: 0xcccccc
         }
         this.extrudeSettings = {
             amount: 8,
@@ -17,9 +18,14 @@ class LoveScene {
         this.mouseX = 0;
         this.mouseY = 0;
 
+        this.raycaster = new THREE.Raycaster();
+        this.mouse = new THREE.Vector3;
+        this.INTERSECTED = null;
+
         this.isTweening = false;
 
         this.init();
+
     }
 
     init() {
@@ -41,9 +47,9 @@ class LoveScene {
 
         // scene --------------
         this.scene = new THREE.Scene();
-        this.scene.background = new THREE.Color(this.colors.red);
+        this.scene.background = new THREE.Color(this.colors.background);
         this.scene.fog = new THREE.FogExp2(
-            this.colors.red,
+            this.colors.background,
             0.002
         );
 
@@ -63,14 +69,6 @@ class LoveScene {
         this.camera.position.y = 2000;
         this.camera.position.z = 2000;
         this.camera.lookAt(new THREE.Vector3());
-
-        // controls --------------------
-        // this.controls = new OrbitControls(this.camera);
-        // this.controls.enablePan = false;
-        // this.controls.autoRotate = true;
-        // this.controls.autoRotateSpeed = 0.1;
-        // this.controls.enableDamping = true;
-        // this.controls.enableZoom = false;
     }
 
     appearScene() {
@@ -84,9 +82,6 @@ class LoveScene {
     }
 
     makeHeartsAtmosphere() {
-        let atmosphere = new THREE.Object3D();
-        this.scene.add(atmosphere);
-
         let heartShape = new THREE.Shape();
         heartShape.moveTo(25, 25);
         heartShape.bezierCurveTo(25, 25, 20, 0, 0, 0);
@@ -101,13 +96,23 @@ class LoveScene {
             this.extrudeSettings
         );
 
-        let material = new THREE.MeshPhongMaterial({
-            color: this.colors.choco,
-            flatShading: true
-        });
+        let material;
 
         // make atmosphere
         for (let i = 0; i < this.numHearts; i++) {
+
+            //make my herart
+            if (i === this.numHearts - 1) {
+                material = new THREE.MeshPhongMaterial({
+                    color: this.colors.myHeart,
+                    flatShading: true
+                });
+            } else {
+                material = new THREE.MeshPhongMaterial({
+                    color: this.colors.heart,
+                    flatShading: true
+                });
+            }
 
             let heart = new THREE.Mesh(
                 geometry,
@@ -125,7 +130,7 @@ class LoveScene {
             heart.rotation.x = Math.PI;
             heart.rotation.y = Math.random() * Math.PI;
 
-            atmosphere.add(heart);
+            this.scene.add(heart);
 
         }
     }
@@ -139,7 +144,7 @@ class LoveScene {
         light2.position.set(-1, -1, -1);
         this.scene.add(light2);
 
-        let ambient = new THREE.AmbientLight(this.colors.choco, 0.1);
+        let ambient = new THREE.AmbientLight(this.colors.heart, 0.1);
         this.scene.add(ambient);
     }
 
@@ -156,6 +161,25 @@ class LoveScene {
     }
 
     animate() {
+        this.raycaster.setFromCamera(this.mouse, this.camera);
+
+        var intersects = this.raycaster.intersectObjects(this.scene.children);
+
+        if (intersects.length > 0) {
+            console.log(intersects)
+            if (this.INTERSECTED != intersects[0].object) {
+                if (this.INTERSECTED) this.INTERSECTED.material.emissive.setHex(this.INTERSECTED.currentHex);
+                this.INTERSECTED = intersects[0].object;
+                this.INTERSECTED.currentHex = this.INTERSECTED.material.emissive.getHex();
+                this.INTERSECTED.material.emissive.setHex(0xff0000);
+            }
+
+        } else {
+            if (this.INTERSECTED) this.INTERSECTED.material.emissive.setHex(this.INTERSECTED.currentHex);
+            this.INTERSECTED = null;
+        }
+
+
         this.renderer.render(this.scene, this.camera);
 
 
@@ -189,6 +213,9 @@ class LoveScene {
 
     onDocumentMouseMove(event) {
         if (this.isTweening) return;
+
+        this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        this.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
 
         this.mouseX = (event.clientX - (window.innerWidth / 2));
         this.mouseY = (event.clientY - (window.innerHeight / 2));
