@@ -1,10 +1,17 @@
+import store from '../store'
+import Secret from './Secret'
+
 class LoveScene {
     constructor() {
-        this.numHearts = 300;
+        this.secret = new Secret();
+
+        this.numHearts = 200;
         this.colors = {
-            myHeart: 0xff0033,
             background: 0xffccff,
-            heart: 0xcccccc
+            myHeart: 0xff0033,
+            normalHearts: 0xFF9999,
+            blueHeart: 0x0099FF,
+            breakHearts: 0x999999
         }
         this.extrudeSettings = {
             amount: 8,
@@ -102,14 +109,33 @@ class LoveScene {
         for (let i = 0; i < this.numHearts; i++) {
 
             //make my herart
-            if (i === this.numHearts - 1) {
+            if (i === 0) {
                 material = new THREE.MeshPhongMaterial({
+                    uuid: i,
                     color: this.colors.myHeart,
                     flatShading: true
                 });
-            } else {
+            }
+            //make break heart
+            else if (i >= 1 && i <= 10) {
                 material = new THREE.MeshPhongMaterial({
-                    color: this.colors.heart,
+                    uuid: i,
+                    color: this.colors.breakHearts,
+                    flatShading: true
+                });
+            }
+            else if (i > 10 && i <= 20) {
+                material = new THREE.MeshPhongMaterial({
+                    uuid: i,
+                    color: this.colors.blueHeart,
+                    flatShading: true
+                });
+            }
+            //make normal heart
+            else {
+                material = new THREE.MeshPhongMaterial({
+                    uuid: i,
+                    color: this.colors.normalHearts,
                     flatShading: true
                 });
             }
@@ -195,6 +221,7 @@ class LoveScene {
     bindEvents() {
         window.addEventListener('resize', this.onWindowResize.bind(this), false);
         document.addEventListener('mousemove', this.onDocumentMouseMove.bind(this), false);
+        document.addEventListener('click', this.onDocumentClick.bind(this), false);
     }
 
     onWindowResize() {
@@ -213,11 +240,25 @@ class LoveScene {
     onDocumentMouseMove(event) {
         if (this.isTweening) return;
 
+        if (!event.altKey) {
+            this.mouseX = (event.clientX - (window.innerWidth / 2));
+            this.mouseY = (event.clientY - (window.innerHeight / 2));
+        }
+
         this.mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
         this.mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
 
-        this.mouseX = (event.clientX - (window.innerWidth / 2));
-        this.mouseY = (event.clientY - (window.innerHeight / 2));
+    }
+
+    onDocumentClick() {
+        if (this.INTERSECTED && !store.getters.getShowDialog) {
+            const audio = document.querySelector('audio');
+            if (audio && audio.paused) {
+                audio.play();
+            }
+            store.dispatch('setShowDialog', true);
+            this.secret.speak(this.INTERSECTED.material.uuid)
+        }
     }
 }
 
