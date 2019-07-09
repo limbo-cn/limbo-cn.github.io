@@ -1,8 +1,9 @@
 <template>
   <div>
-    <div id="audio" class="icon" @click.stop="playAudio"><span data-descr="↑浏览器不自动播放音乐>.<，请点击我开启告白模式">🔊</span></div>
-    <div id="heart" class="icon" @click.stop="empty"><span data-descr=" dtl💓zyd  --->  forever🦄">💓</span></div>
-    <div id="info" class="icon" @click.stop="empty"><span data-descr="每一颗爱心都代表了我对你的告白，不同的颜色象征着我们的爱情之路，时而甜蜜，时而心酸，虽然聚少离多，但我们最终还是坚持到了最后，汇聚成了这片海洋，探索这片海洋，发现更多只属于我们的秘密吧😃(按住alt锁定)">🔥</span></div>
+    <div id="audio" class="icon" @click.stop="playAudio"><span data-descr="若浏览器不自动播放音乐>.<，请点击我开启告白模式">📢</span></div>
+    <div id="heart" class="icon" @click.stop="empty"><span data-descr=" dtl💗zyd  --->  forever🎉">💗</span></div>
+    <div id="letter" class="icon" @click.stop="empty"><span data-descr="每一颗爱心都代表了我对你的告白，不同的颜色象征着我们的爱情之路，时而甜蜜，时而心酸，虽然聚少离多，但我们最终还是坚持到了最后，汇聚成了这片海洋，探索这片海洋，发现更多只属于我们的秘密,找到那颗唯一的红色小心心吧😃">💌</span></div>
+    <div id="info" class="icon" @click.stop="empty"><span data-descr="作者:dtl(limbo),电脑按住alt锁定,手机效果远没有电脑好看>.<,我只是强行做了适配,强烈建议电脑登录,不支持IE">🛐</span></div>
     <transition name="fade">
       <div class="dialog" v-show="showDialog">
         <div class="mask"></div>
@@ -83,8 +84,11 @@ export default class Proposal extends Vue {
 #heart{
   left: 2rem;
 }
-#info{
+#letter{
   left: 4rem;
+}
+#info{
+  left: 6rem;
 }
 svg{
     bottom: 0;

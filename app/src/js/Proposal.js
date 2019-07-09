@@ -221,9 +221,10 @@ class LoveScene {
     bindEvents() {
         window.addEventListener('resize', this.onWindowResize.bind(this), false);
         document.addEventListener('mousemove', this.onDocumentMouseMove.bind(this), false);
-        document.addEventListener('click', this.onDocumentClick.bind(this), false);
+        document.addEventListener('mousedown', this.onDocumentMouseDown.bind(this), false);
         document.addEventListener('touchmove', this.onDocumentTouchMove.bind(this), false);
-        document.addEventListener('tap', this.onDocumentTap.bind(this), false);
+        document.addEventListener('touchstart', this.onDocumentTouchStart.bind(this), false);
+        document.addEventListener('touchend', this.onDocumentTouchEnd.bind(this), false);
     }
 
     onWindowResize() {
@@ -261,7 +262,7 @@ class LoveScene {
 
     }
 
-    onDocumentClick() {
+    onDocumentMouseDown() {
         if (this.INTERSECTED && !store.getters.getShowDialog) {
             const audio = document.querySelector('audio');
             if (audio && audio.paused) {
@@ -272,9 +273,12 @@ class LoveScene {
         }
     }
 
-    onDocumentTap(event) {
+    onDocumentTouchStart(event) {
         this.mouse.x = (event.touches[0].pageX / window.innerWidth) * 2 - 1;
         this.mouse.y = - (event.touches[0].pageY / window.innerHeight) * 2 + 1;
+    }
+
+    onDocumentTouchEnd() {
         if (this.INTERSECTED && !store.getters.getShowDialog) {
             const audio = document.querySelector('audio');
             if (audio && audio.paused) {
