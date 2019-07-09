@@ -96,13 +96,18 @@ svg{
     position: absolute;
     width: 400px;
     height: 400px;
+    @media screen and (max-width: 800px) { 
+      width: 300px;
+      height: 300px; 
+    }
 }
 #text{
   font-size: 2rem;
   word-break: break-all;
   width: 50%;
+  @media screen and (max-width: 800px) { font-size: 1rem }
 }
- span[data-descr]:hover::after{
+span[data-descr]:hover::after{
     content: attr(data-descr);
     position: absolute;
     left: 0;
@@ -114,7 +119,7 @@ svg{
     color: #555;
     font-size: 14px;
     z-index: 1;
-  }
+}
 .dialog {
 	position: relative;
     .dialog-content {
@@ -140,6 +145,7 @@ svg{
         &:hover{
           box-shadow: 0px 0px 30px #ee82f1;
         }
+         @media screen and (max-width: 800px) { width: 100%; }
     }
     .mask {
         position: fixed;
