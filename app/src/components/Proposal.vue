@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div id="audio" class="icon" @click.stop="playAudio"><span data-descr="若浏览器不自动播放音乐>.<，请手动开启告白模式">🔊</span></div>
-    <div id="heart" class="icon"><span data-descr=" dtl💓zyd  --->  forever🦄">💓</span></div>
-    <div id="info" class="icon"><span data-descr="每一颗爱心都代表了我对你的告白，不同的颜色象征着我们的爱情之路，时而甜蜜，时而心酸，虽然聚少离多，但我们最终还是坚持到了最后，汇聚成了这片海洋，探索这片海洋，发现更多只属于我们的秘密吧😃(按住alt锁定)">🔥</span></div>
+    <div id="audio" class="icon" @click.stop="playAudio"><span data-descr="↑浏览器不自动播放音乐>.<，请点击我开启告白模式">🔊</span></div>
+    <div id="heart" class="icon" @click.stop="empty"><span data-descr=" dtl💓zyd  --->  forever🦄">💓</span></div>
+    <div id="info" class="icon" @click.stop="empty"><span data-descr="每一颗爱心都代表了我对你的告白，不同的颜色象征着我们的爱情之路，时而甜蜜，时而心酸，虽然聚少离多，但我们最终还是坚持到了最后，汇聚成了这片海洋，探索这片海洋，发现更多只属于我们的秘密吧😃(按住alt锁定)">🔥</span></div>
     <transition name="fade">
       <div class="dialog" v-show="showDialog">
         <div class="mask"></div>
@@ -49,6 +49,13 @@ export default class Proposal extends Vue {
   }
 
   private playAudio(): void {
+    const audio: HTMLAudioElement | null = document.querySelector('audio');
+    if (audio) {
+      audio.play();
+    }
+  }
+
+  private empty(): void {
     const audio: HTMLAudioElement | null = document.querySelector('audio');
     if (audio) {
       audio.play();
