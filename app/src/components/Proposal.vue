@@ -10,21 +10,21 @@
     <div id="heart" class="icon" @click.stop="empty">
       <span data-descr=" dtl💗zyd  --->  forever🎉">
         <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-xinxi"></use>
+          <use xlink:href="#icon-xin"></use>
         </svg>
       </span>
     </div>
     <div id="letter" class="icon" @click.stop="empty">
       <span data-descr="每一颗爱心都代表了我对你的告白，不同的颜色象征着我们的爱情之路，时而甜蜜，时而心酸，虽然聚少离多，但我们最终还是坚持到了最后，汇聚成了这片海洋，探索这片海洋，发现更多只属于我们的秘密,找到那颗唯一的红色小心心吧😃">
         <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-heartbeat "></use>
+          <use xlink:href="#icon-qingtie"></use>
         </svg>
       </span>
     </div>
     <div id="info" class="icon" @click.stop="empty">
       <span data-descr="作者:dtl(limbo),这个项目是我自己撸出来的,为了向张老板求婚可以说是很拼了,需要源码或者技术交流的同学可以加我微信firelimbo1992,电脑端比手机端好看的多>.<建议电脑登录,不支持IE">
         <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-icon-test2"></use>
+          <use xlink:href="#icon-lipao-"></use>
         </svg>
       </span>
     </div>
@@ -61,7 +61,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import '../js/Proposal.js';
-import '../js/icons'
+import '../js/icons';
 
 @Component
 export default class Proposal extends Vue {
