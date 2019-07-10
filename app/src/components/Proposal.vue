@@ -3,7 +3,7 @@
     <div id="audio" class="icon" @click.stop="playAudio">
       <span data-descr="若浏览器不自动播放音乐>.<，请点击我开启告白模式">
         <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-music"></use>
+          <use xlink:href="#icon-lingdang"></use>
         </svg>
       </span>
     </div>
@@ -22,7 +22,7 @@
       </span>
     </div>
     <div id="info" class="icon" @click.stop="empty">
-      <span data-descr="作者:dtl(limbo),这个项目是我自己撸出来的,为了向张老板求婚可以说是很拼了,需要源码或者技术交流的同学可以加我微信firelimbo1992,电脑端比手机端好看的多>.<建议电脑登录,不支持IE">
+      <span data-descr="作者:dtl(limbo),这个项目是我自己一点点撸出来的,为了向张老板求婚可以说是很拼了,需要源码或者技术交流的同学可以加我微信firelimbo1992,电脑端比手机端好看的多>.<建议电脑登录,不支持IE">
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-lipao-"></use>
         </svg>
@@ -36,6 +36,10 @@
           </div>
           <div id='text'>
             <p>{{ secret }}</p>
+            <br />
+            <div align="center">
+              <img v-show="!!imgSrc" :src="imgSrc" />
+            </div>
           </div>
           <svg t="1562565497488" viewBox="0 0 1024 1024" width="200" height="200">
             <path d="M511.3 511.5m-295.2 0a295.2 295.2 0 1 0 590.4 0 295.2 295.2 0 1 0-590.4 0Z" fill="#9FE2CD" p-id="6304"></path>
@@ -74,6 +78,10 @@ export default class Proposal extends Vue {
     return this.$store.getters.getSecret;
   }
 
+  get imgSrc(): boolean {
+    return this.$store.getters.getImgSrc;
+  }
+
   private playAudio(): void {
     const audio: HTMLAudioElement | null = document.querySelector('audio');
     if (audio) {
@@ -90,6 +98,7 @@ export default class Proposal extends Vue {
 
   private closeDialog(): void {
     this.$store.dispatch('setShowDialog', false);
+    this.$store.dispatch('setImg', '');
     clearInterval(this.$store.getters.getTimer);
   }
 }
@@ -131,6 +140,12 @@ svg{
   word-break: break-all;
   width: 50%;
   @media screen and (max-width: 800px) { font-size: 1rem }
+  img{
+    border-radius: 5px;
+    width: 22rem;
+    height: 22rem;
+    transition: 1s;
+  }
 }
 span[data-descr]:hover::after{
     content: attr(data-descr);
@@ -152,7 +167,7 @@ span[data-descr]:hover::after{
         box-sizing: border-box;
         padding: 20px;
         width: 50%;
-        height: 600px;
+        min-height: 600px;
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);

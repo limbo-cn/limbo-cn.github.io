@@ -8,6 +8,7 @@ export default new Vuex.Store({
     showDialog: false,
     secret: '',
     timer: null,
+    imgSrc: '',
   },
   mutations: {
     SET_SHOW_DIALOG: (state, show) => {
@@ -18,6 +19,9 @@ export default new Vuex.Store({
     },
     SET_TIMER: (state, timer) => {
       state.timer = timer;
+    },
+    SET_IMG: (state, src) => {
+      state.imgSrc = src;
     },
   },
   actions: {
@@ -30,10 +34,14 @@ export default new Vuex.Store({
     setTimer({ commit }, timer) {
       commit('SET_TIMER', timer);
     },
+    setImg({ commit }, src) {
+      commit('SET_IMG', src);
+    },
   },
   getters: {
     getShowDialog: (state) => state.showDialog,
     getSecret: (state) => state.secret,
     getTimer: (state) => state.timer,
+    getImgSrc: (state) => state.imgSrc,
   },
 });
