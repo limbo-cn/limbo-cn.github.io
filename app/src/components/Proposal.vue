@@ -1,9 +1,33 @@
 <template>
   <div>
-    <div id="audio" class="icon" @click.stop="playAudio"><span data-descr="若浏览器不自动播放音乐>.<，请点击我开启告白模式">📢</span></div>
-    <div id="heart" class="icon" @click.stop="empty"><span data-descr=" dtl💗zyd  --->  forever🎉">💗</span></div>
-    <div id="letter" class="icon" @click.stop="empty"><span data-descr="每一颗爱心都代表了我对你的告白，不同的颜色象征着我们的爱情之路，时而甜蜜，时而心酸，虽然聚少离多，但我们最终还是坚持到了最后，汇聚成了这片海洋，探索这片海洋，发现更多只属于我们的秘密,找到那颗唯一的红色小心心吧😃">💌</span></div>
-    <div id="info" class="icon" @click.stop="empty"><span data-descr="作者:dtl(limbo),电脑按住alt锁定,手机效果远没有电脑好看>.<,我只是强行做了适配,强烈建议电脑登录,不支持IE">🛐</span></div>
+    <div id="audio" class="icon" @click.stop="playAudio">
+      <span data-descr="若浏览器不自动播放音乐>.<，请点击我开启告白模式">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-music"></use>
+        </svg>
+      </span>
+    </div>
+    <div id="heart" class="icon" @click.stop="empty">
+      <span data-descr=" dtl💗zyd  --->  forever🎉">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-xinxi"></use>
+        </svg>
+      </span>
+    </div>
+    <div id="letter" class="icon" @click.stop="empty">
+      <span data-descr="每一颗爱心都代表了我对你的告白，不同的颜色象征着我们的爱情之路，时而甜蜜，时而心酸，虽然聚少离多，但我们最终还是坚持到了最后，汇聚成了这片海洋，探索这片海洋，发现更多只属于我们的秘密,找到那颗唯一的红色小心心吧😃">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-heartbeat "></use>
+        </svg>
+      </span>
+    </div>
+    <div id="info" class="icon" @click.stop="empty">
+      <span data-descr="作者:dtl(limbo),这个项目是我自己撸出来的,为了向张老板求婚可以说是很拼了,需要源码或者技术交流的同学可以加我微信firelimbo1992,电脑端比手机端好看的多>.<建议电脑登录,不支持IE">
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-icon-test2"></use>
+        </svg>
+      </span>
+    </div>
     <transition name="fade">
       <div class="dialog" v-show="showDialog">
         <div class="mask"></div>
@@ -78,7 +102,7 @@ export default class Proposal extends Vue {
   left: 0;
   &:hover{
     cursor: pointer;
-    font-size: 1.3em;
+    font-size: 1.1em;
   }
 }
 #heart{
@@ -162,5 +186,9 @@ span[data-descr]:hover::after{
 }
 .fade-enter, .fade-leave-to /* .fade-leave-active below version 2.1.8 */ {
   opacity: 0;
+}
+.icon {
+  width: 1.5em; height: 1.5em;
+  fill: currentColor;
 }
 </style>
