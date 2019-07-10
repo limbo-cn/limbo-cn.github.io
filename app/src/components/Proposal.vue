@@ -61,6 +61,7 @@
 <script lang="ts">
 import { Component, Prop, Vue } from 'vue-property-decorator';
 import '../js/Proposal.js';
+import '../js/icons'
 
 @Component
 export default class Proposal extends Vue {
