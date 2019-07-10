@@ -145,6 +145,7 @@ svg{
     width: 22rem;
     height: 22rem;
     transition: 1s;
+    z-index: 20;
   }
 }
 span[data-descr]:hover::after{
