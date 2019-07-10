@@ -142,7 +142,7 @@ export default class Proposal extends Vue {
   width: 50%;
   @media screen and (max-width: 800px) { font-size: 1rem }
   img{
-    border-radius: 5px;
+    border-radius: 15px;
     width: 22rem;
     height: 22rem;
     transition: 1s;

@@ -117,13 +117,6 @@ class LoveScene {
                 });
             }
             //make break heart
-            else if (i >= 1 && i <= 10) {
-                material = new THREE.MeshPhongMaterial({
-                    uuid: i,
-                    color: this.colors.breakHearts,
-                    flatShading: true
-                });
-            }
             else if (i > 10 && i <= 20) {
                 material = new THREE.MeshPhongMaterial({
                     uuid: i,
