@@ -38,10 +38,10 @@
             <p>{{ secret }}</p>
             <br />
             <div align="center">
-              <img :class="{ noneImg: !imgSrc, showImg: !!imgSrc }" :src="imgSrc" />
+              <img :class="{ noneImg: !loaded, showImg: loaded }" :src="imgSrc" @load="onLoad" />
             </div>
           </div>
-          <svg t="1562565497488" id="backSvg" viewBox="0 0 1024 1024" width="200" height="200" :class="{ noneSvg: !imgSrc , showSvg: !!imgSrc}">
+          <svg :class="{ noneSvg: loaded, showSvg: !loaded }" t="1562565497488" id="backSvg" viewBox="0 0 1024 1024" width="200" height="200">
             <path d="M511.3 511.5m-295.2 0a295.2 295.2 0 1 0 590.4 0 295.2 295.2 0 1 0-590.4 0Z" fill="#9FE2CD" p-id="6304"></path>
             <path d="M462.2 602.4l49.1-181.9 49.2 181.9z" fill="#F9AFBD" p-id="6305"></path>
             <path d="M560.5 608.4h-98.4c-1.9 0-3.6-0.9-4.8-2.4-1.1-1.5-1.5-3.4-1-5.2L505.5 419c0.7-2.6 3.1-4.4 5.8-4.4s5.1 1.8 5.8 4.4l49.2 181.8c0.5 1.8 0.1 3.7-1 5.2-1.2 1.5-2.9 2.4-4.8 2.4z m-90.5-12h82.7l-41.3-152.9L470 596.4z" fill="#0C0C0C" p-id="6306"></path>
@@ -69,6 +69,8 @@ import '../js/icons';
 
 @Component
 export default class Proposal extends Vue {
+
+  private loaded: boolean = false;
 
   get showDialog(): boolean {
     return this.$store.getters.getShowDialog;
@@ -100,6 +102,11 @@ export default class Proposal extends Vue {
     this.$store.dispatch('setShowDialog', false);
     this.$store.dispatch('setImg', '');
     clearInterval(this.$store.getters.getTimer);
+    this.loaded = false;
+  }
+
+  private onLoad(): void {
+    this.loaded = true;
   }
 }
 </script>
@@ -129,19 +136,22 @@ export default class Proposal extends Vue {
     bottom: 0;
     right: 0;
     position: absolute;
-    width: 400px;
-    height: 400px;
-    transition: 1.5s;
+    @media screen and (min-width: 800px) { 
+      width: 25rem;
+      height: 25rem;
+    }
+    transition: 1s;
     opacity: 1;
 }
 #text{
   font-size: 2rem;
   word-break: break-all;
   width: 50%;
+  @media screen and (max-width: 800px) { width: 100%; }
   @media screen and (max-width: 800px) { font-size: 1rem }
   img{
     border-radius: 15px;
-    transition: 1.5s;
+    transition: 1s;
   }
 }
 .noneImg{
@@ -149,16 +159,17 @@ export default class Proposal extends Vue {
   height:0px;
   opacity: 0;
 }
-.noneSvg{
-   @media screen and (max-width: 800px) {  width: 0px; height:0px; opacity: 0; }
-}
-.showSvg{
-   @media screen and (max-width: 800px) {  width: 300px; height:300px; opacity: 1; }
-}
 .showImg{
   width: 22rem;
-  height:22rem;
+  height:auto;
+  max-width:  calc(200% - 40px);
   opacity: 1;
+}
+.noneSvg{
+  @media screen and (max-width: 800px) { width: 0px; height: 0px;  }
+}
+.showSvg{
+  @media screen and (max-width: 800px) { width: 18rem; height: 18rem;   }
 }
 span[data-descr]:hover::after{
     content: attr(data-descr);
@@ -180,7 +191,8 @@ span[data-descr]:hover::after{
         box-sizing: border-box;
         padding: 20px;
         width: 50%;
-        min-height: 600px;
+        min-height: 38rem;
+        @media screen and (max-height: 800px) { min-height: 30rem; }
         left: 50%;
         top: 50%;
         transform: translate(-50%, -50%);
