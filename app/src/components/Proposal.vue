@@ -38,10 +38,10 @@
             <p>{{ secret }}</p>
             <br />
             <div align="center">
-              <img v-show="!!imgSrc" :src="imgSrc" />
+              <img :class="{ noneImg: !imgSrc, showImg: !!imgSrc }" :src="imgSrc" />
             </div>
           </div>
-          <svg t="1562565497488" id="backSvg" viewBox="0 0 1024 1024" width="200" height="200">
+          <svg t="1562565497488" id="backSvg" viewBox="0 0 1024 1024" width="200" height="200" :class="{ noneSvg: !imgSrc , showSvg: !!imgSrc}">
             <path d="M511.3 511.5m-295.2 0a295.2 295.2 0 1 0 590.4 0 295.2 295.2 0 1 0-590.4 0Z" fill="#9FE2CD" p-id="6304"></path>
             <path d="M462.2 602.4l49.1-181.9 49.2 181.9z" fill="#F9AFBD" p-id="6305"></path>
             <path d="M560.5 608.4h-98.4c-1.9 0-3.6-0.9-4.8-2.4-1.1-1.5-1.5-3.4-1-5.2L505.5 419c0.7-2.6 3.1-4.4 5.8-4.4s5.1 1.8 5.8 4.4l49.2 181.8c0.5 1.8 0.1 3.7-1 5.2-1.2 1.5-2.9 2.4-4.8 2.4z m-90.5-12h82.7l-41.3-152.9L470 596.4z" fill="#0C0C0C" p-id="6306"></path>
@@ -131,10 +131,8 @@ export default class Proposal extends Vue {
     position: absolute;
     width: 400px;
     height: 400px;
-    @media screen and (max-width: 800px) { 
-      width: 300px;
-      height: 300px; 
-    }
+    transition: 1.5s;
+    opacity: 1;
 }
 #text{
   font-size: 2rem;
@@ -143,10 +141,24 @@ export default class Proposal extends Vue {
   @media screen and (max-width: 800px) { font-size: 1rem }
   img{
     border-radius: 15px;
-    width: 22rem;
-    height: 22rem;
-    transition: 1s;
+    transition: 1.5s;
   }
+}
+.noneImg{
+  width: 0px;
+  height:0px;
+  opacity: 0;
+}
+.noneSvg{
+   @media screen and (max-width: 800px) {  width: 0px; height:0px; opacity: 0; }
+}
+.showSvg{
+   @media screen and (max-width: 800px) {  width: 300px; height:300px; opacity: 1; }
+}
+.showImg{
+  width: 22rem;
+  height:22rem;
+  opacity: 1;
 }
 span[data-descr]:hover::after{
     content: attr(data-descr);
