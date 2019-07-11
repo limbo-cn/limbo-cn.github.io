@@ -75,11 +75,12 @@ export default class Secret {
             store.dispatch('setSecret', str.slice(0, i++) + '_')
             const timer = setTimeout(this.bind(this, this.speak), Math.random() * 250, id, i)
             store.dispatch('setTimer', timer)
-            if (str.length - i < 6 && img) {
+            if (i === 1 && img) {// first letter
                 store.dispatch('setImg', require(`@/assets/${img}.jpg`))
             }
         } else {
             store.dispatch('setSecret', str)
+            store.dispatch('setSpoken', true)
         }
     }
 

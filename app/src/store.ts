@@ -7,6 +7,7 @@ export default new Vuex.Store({
   state: {
     showDialog: false,
     secret: '',
+    spoken: false,
     timer: null,
     imgSrc: '',
   },
@@ -16,6 +17,9 @@ export default new Vuex.Store({
     },
     SET_SECRET: (state, str) => {
       state.secret = str;
+    },
+    SET_SPOKEN: (state, spoken) => {
+      state.spoken = spoken;
     },
     SET_TIMER: (state, timer) => {
       state.timer = timer;
@@ -31,6 +35,9 @@ export default new Vuex.Store({
     setSecret({ commit }, str) {
       commit('SET_SECRET', str);
     },
+    setSpoken({ commit }, spoken) {
+      commit('SET_SPOKEN', spoken);
+    },
     setTimer({ commit }, timer) {
       commit('SET_TIMER', timer);
     },
@@ -41,6 +48,7 @@ export default new Vuex.Store({
   getters: {
     getShowDialog: (state) => state.showDialog,
     getSecret: (state) => state.secret,
+    getSpoken: (state) => state.spoken,
     getTimer: (state) => state.timer,
     getImgSrc: (state) => state.imgSrc,
   },
